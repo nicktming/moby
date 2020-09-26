@@ -12,6 +12,7 @@ import (
 	"github.com/docker/docker/volume"
 	"github.com/opencontainers/selinux/go-selinux/label"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 )
 
 // MountPoint is the intersection point between a volume and a container. It
@@ -151,7 +152,7 @@ func (m *MountPoint) Setup(mountLabel string, rootIDs idtools.Identity, checkFun
 			}
 		}
 
-		fmt.Printf("=======>mount setup m.Source: %v, dest: %v, MkdirAllAndChownNew rootIDs: %v\n",
+		logrus.Infof("=======>mount setup m.Source: %v, dest: %v, MkdirAllAndChownNew rootIDs: %v\n",
 			m.Source, m.Destination, rootIDs)
 
 		// idtools.MkdirAllNewAs() produces an error if m.Source exists and is a file (not a directory)
