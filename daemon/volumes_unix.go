@@ -14,6 +14,7 @@ import (
 	"github.com/docker/docker/pkg/fileutils"
 	"github.com/docker/docker/pkg/mount"
 	volumemounts "github.com/docker/docker/volume/mounts"
+	"encoding/json"
 )
 
 // setupMounts iterates through each of the mount points for a container and
@@ -31,6 +32,10 @@ func (daemon *Daemon) setupMounts(c *container.Container) ([]container.Mount, er
 		tmpfsMounts[m.Destination] = true
 	}
 	for _, m := range c.MountPoints {
+
+		pretty_m, err := json.MarshalIndent(m, "", "\t")
+		fmt.Printf("==>pretty mountpoint: %v\n", string(pretty_m))
+
 		if tmpfsMounts[m.Destination] {
 			continue
 		}

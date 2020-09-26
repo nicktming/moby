@@ -151,6 +151,9 @@ func (m *MountPoint) Setup(mountLabel string, rootIDs idtools.Identity, checkFun
 			}
 		}
 
+		fmt.Printf("=======>mount setup m.Source: %v, dest: %v, MkdirAllAndChownNew rootIDs: %v\n",
+			m.Source, m.Destination, rootIDs)
+
 		// idtools.MkdirAllNewAs() produces an error if m.Source exists and is a file (not a directory)
 		// also, makes sure that if the directory is created, the correct remapped rootUID/rootGID will own it
 		if err := idtools.MkdirAllAndChownNew(m.Source, 0755, rootIDs); err != nil {

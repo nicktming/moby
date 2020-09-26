@@ -12,6 +12,7 @@ import (
 	"github.com/docker/docker/pkg/mount"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	"fmt"
 )
 
 // ContainerStart starts a container.
@@ -151,6 +152,7 @@ func (daemon *Daemon) containerStart(container *container.Container, checkpoint 
 		return err
 	}
 
+	fmt.Printf("----------create spec for container: %v----------\n", container.Name)
 	spec, err := daemon.createSpec(container)
 	if err != nil {
 		return errdefs.System(err)
